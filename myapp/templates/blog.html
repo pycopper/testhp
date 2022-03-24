@@ -1,0 +1,16 @@
+{% extends 'layout.html' %}
+
+{% block header %}
+<h1 class="text-center">ようこそ</h1>
+{% endblock header %}
+
+{% block content %}
+{% for item in blogs %}
+<h2>{{ item.id }}:{{ item.title }} </h2>
+<p>{{ item.date }}</p>
+<img src="{{ item.img.url }}" class="img-fluid" alt="img">
+<p>{{ item.contents }}</p>
+<hr>
+{% endfor %}
+<p>こちらにメッセージを書きます。</p>
+{% endblock content %}

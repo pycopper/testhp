@@ -11,6 +11,16 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+class Blog (models.Model):
+   title = models.CharField(max_length=100)
+   date = models.DateTimeField()
+   img = models.ImageField(upload_to='media/')
+   contents = models.TextField(max_length=100)
+
+   #追加
+   def __str__(self):
+       return self.title
+
 
 class Tag(models.Model):
     name = models.CharField(max_length=255)
@@ -31,6 +41,7 @@ class Post(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     published_at = models.DateTimeField(blank=True, null=True)
     is_public = models.BooleanField(default=False)
+
 
     class Meta:
         ordering = ['-created_at']

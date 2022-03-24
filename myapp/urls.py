@@ -15,21 +15,16 @@ Including another URLconf
 """
 from django.urls import path
 from . import views
-
+from django.conf.urls.static import static
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.conf import settings
 app_name ='myapp'
 
 
 
 urlpatterns = [
-    path('',views.index,name='index'),
+    path('',views.base,name='base'),
     path('index.html',views.index,name='index'),
-    path('contact.html',views.contact,name='contact'),
-    path('recruit.html',views.recruit,name='recruit'),
-    path('sitemap.html',views.sitemap,name='sitemap'),
-    path('menu.html',views.menu,name='menu'),
-    path('works.html',views.works,name='works'),
-    path('staff.html',views.staff,name='staff'),
-    path('shop.html',views.shop,name='shop'),
-    path('access.html',views.access,name='access'),
-    path('link.html',views.link,name='link'),
-]
+    path('base.html',views.base,name='base'),
+    path('blog.html',views.blog,name='blog'),
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

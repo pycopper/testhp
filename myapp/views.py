@@ -8,38 +8,18 @@ from django.http import Http404
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 
-from myapp.models import Post, Category, Tag
+from myapp.models import Post, Category, Tag,Blog
 
 
 def index(request):
     return render(request, 'index.html')
 
-def contact(request):
-    return render(request, 'contact.html')
+def base(request):
+    return render(request, 'base.html')
 
-def recruit(request):
-    return render(request, 'recruit.html')
-
-def sitemap(request):
-    return render(request, 'sitemap.html')
-
-def menu(request):
-    return render(request, 'menu.html')
-
-def staff(request):
-    return render(request, 'staff.html')
-
-def works(request):
-    return render(request, 'works.html')
-
-def shop(request):
-    return render(request, 'shop.html')
-
-def access(request):
-    return render(request, 'access.html')
-
-def link(request):
-    return render(request, 'link.html')
+def blog(request):
+    blogmodel ={'blogs': Blog.objects.all(),}
+    return render(request, 'blog.html',blogmodel)
 
 class PostDetailView(DetailView):
     model = Post
