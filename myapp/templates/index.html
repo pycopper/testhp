@@ -1,0 +1,88 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block nav %}
+           <li class="nav-item active ">
+               <a class="nav-link" href="{% url 'myapp:index' %}">Home<span class="sr-only">(current)</span></a>
+           </li>
+           <li class="nav-item mx-2">
+               <a class="nav-link" href="{% url 'myapp:lace' %}">galery  </a>
+           </li>
+           <li class="nav-item ">
+               <a class="nav-link" href="{% url 'myapp:tea' %}">tea and sweets</a>
+           </li>
+{% endblock nav %}
+
+{% block content %}
+
+    <div id="main">
+        <div id="top_img"><img src="{% static 'img/top_img.jpg' %}" alt="no.001メインイメージ" /></div>
+    <div id="content">
+        <h2>Marshmallow へようこそ<span>Welcome to Marshmallow </span></h2>
+        <h3>プロフィール<span>Plofile</span></h3>
+        <div class="box_out">
+                     <div class="box_in">
+                         <div class="img_left"><img src="{% static 'img/myicon.jpg' %}" alt="image" width="180" height="120" /></div>
+                         <p>透き通るような、あたたかな時間を、あなたに。<br/>
+                         紅茶と編み物を愛するmarshmallowの制作日記です。<br/>
+                         ご連絡はtweeterよりお願いします。<br/>
+                         tweeter:@</p>
+         </div>
+        </div>
+        <div class="main_box">
+        <div class="box02_left">
+                    <h3>作品集<span>Tatting Lace</span></h3>
+                    <div class="box_in">
+                        <div class="img_left"><img src="{% static 'img/mywork.jpg' %}" alt="サンプルイメージ" width="100" height="100" /></div>
+                        <p>タティングレース<br/>
+                            を主に行っています。</p>
+                        <div class="btn_s"><a href="{% url 'myapp:lace' %}">リンク＞＞詳細はコチラ</a></div>
+                        </div>
+                    </div>
+        <div class="box02_right">
+                 <h3>紅茶とお菓子について<span>tea and sweets</span></h3>
+                 <div class="box_in">
+                    <div class="img_right"><img src="../static/img/teaandlace-2.jpg" alt="サンプルイメージ" /></div>
+                    <p>自作したお菓子やおいしい紅茶などの情報をまとめています。</p>
+                    <div class="btn_s"><a href= "{% url 'myapp:tea' %}">リンク＞＞詳細はコチラ</a></div>
+                     </div>
+                 </div>
+            </div>
+        <div class="box03_right">
+                    <h3>新着情報<span>News</span></h3>
+                    {% for item in blog_list %}
+                    {% if forloop.counter < 5 %}
+                    <p>
+                    {{item.date}}
+                    <a href ="{% url 'myapp:blog_detail' item.pk %}" >{{item.title}}更新しました!</a>
+                    </p>
+                    {% endif %}
+                    {% endfor %}
+        </div>
+    </div>
+    <div id="side">
+      <h3>SITE MENU</h3>
+      <div class="side_box">
+        <div class="side_inbox">
+          <ul>
+            <li><a href="{% url 'myapp:index' %}">トップページ<br />
+              <span>HOME</span></a></li>
+            <li><a href="{% url 'myapp:lace' %}">作品集<br />
+              <span>gallery</span></a></li>
+            <li><a href="{% url 'myapp:tea' %}">紅茶とお菓子について<br />
+              <span>tea and sweets</span></a></li>
+          </ul>
+        </div>
+          </div>
+        <div class="side_prbox">
+<!--　削除禁止【ＰＲ枠】ここから　-->
+<!--prno.130321ver2.01set017-->
+Design by <a href="http://www.nc-mania.com/" target="_blank">nc-mania.com</a><br />
+Template by <a href="http://www.s-hoshino.com/" target="_blank">s-hoshino.com</a>
+<!--　/削除禁止【ＰＲ枠】ここまで　-->
+        </div>
+         </div>
+
+</div>
+
+{% endblock content %}

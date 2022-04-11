@@ -1,0 +1,14 @@
+{% extends 'layout.html' %}
+
+{% block header %}
+<h1 class="text-center">ようこそ</h1>
+
+
+{% endblock header %}
+
+{% block content %}
+<form action='' method="post" enctype="multipart/form-data" >{% csrf_token %}
+   <p>パスコード：<input type='password' name='pscord'></p>
+   <p><input type='submit' value='作成する'></p>
+</form>
+{% endblock content %}

@@ -1,0 +1,16 @@
+{% extends 'layout.html' %}
+
+{% block header %}
+<h1 class="text-center">ようこそ</h1>
+{% endblock header %}
+
+{% block content %}
+<button type="button" class="btn btn-dark"><a class="text-white" href="{% url 'myapp:create' %}">新規作成</a></button>
+
+<p>{{ blog_detail.date }}</p>
+<p>{{ blog_detail.title }}</p>
+<img src="{{ blog_detail.img.url }}"</img>
+<p>{{ blog_detail.contents }}</p>
+
+<a href ="{% url 'myapp:tea' %}" >記事一覧へ戻る</a>
+{% endblock content %}

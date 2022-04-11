@@ -2,45 +2,75 @@ from django.shortcuts import render
 
 # Create your views here.
 
-from django.shortcuts import render
-from django.db.models import Count, Q
-from django.http import Http404
-from django.views.generic.detail import DetailView
-from django.views.generic.list import ListView
+from django.shortcuts import render,redirect
+from django.views.generic import CreateView
+from django.views.generic import TemplateView
+from django.urls import reverse_lazy
+from django.views.generic import ListView
+from django.views.generic import DetailView
+from django.views.generic import FormView
 
-from myapp.models import Post, Category, Tag,Blog
+from datetime import datetime as dt
+
+
+from .forms import BlogForm,LoginForm
+from .models import Blog
 
 
 def index(request):
     return render(request, 'index.html')
 
+
 def base(request):
     return render(request, 'base.html')
 
+
 def blog(request):
-    blogmodel ={'blogs': Blog.objects.all(),}
-    return render(request, 'blog.html',blogmodel)
+    blogs = Blog.objects.all()
+    params = {
+        'blogs': blogs
+    }
+    return render(request, 'blog.html', params)
 
-class PostDetailView(DetailView):
-    model = Post
+class indexview(ListView):
+    template_name = 'index.html'
+    model =Blog
+    ordering = '-date'
+    context_object_name = "blog_list"
 
-    def get_object(self, queryset=None):
-        obj = super().get_object(queryset=queryset)
-        if not obj.is_public and not self.request.user.is_authenticated:
-            raise Http404
-        return obj
+class ContentCreate(CreateView):
+   template_name = 'create.html'
+   form_class = BlogForm
+   success_url = reverse_lazy('myapp:index')
+   def form_valid(self,form):
+       Blog.date = dt.strptime(self.request.POST.get('date'), '%Y-%m-%d')
+       return super().form_valid(form)
 
-class IndexView(ListView):
-    model = Post
-    template_name = 'myapp/index.html'
+class tealist(ListView):
+    template_name = 'tea.html'
+    context_object_name = "tea_list"
+    queryset = Blog.objects.filter(is_tea=True).order_by('-date')
 
-class CategoryListView(ListView):
-    queryset = Category.objects.annotate(
-        num_posts=Count('post', filter=Q(post__is_public=True)))
-
-class TagListView(ListView):
-    queryset = Tag.objects.annotate(num_posts=Count(
-        'post', filter=Q(post__is_public=True)))
+class lacelist(ListView):
+    template_name = 'works.html'
+    queryset = Blog.objects.filter(is_tea=False).order_by('-date')
+    context_object_name = "lace_list"
 
 
+class blogdetail(DetailView):
+    template_name = 'blog_detail.html'
+    context_object_name = "blog_detail"
+    model = Blog
+
+class Login(FormView):
+    template_name = 'login.html'
+    form_class = LoginForm
+    success_url = reverse_lazy('myapp:create')
+
+    def form_valid(self, form):
+        passcord = '01234567'
+        if passcord==form.data.get('pscord'):
+            return super().form_valid(form)
+        else:
+            return redirect('myapp:index')
 

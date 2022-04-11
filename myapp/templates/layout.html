@@ -15,15 +15,21 @@
     <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="{% static 'scripts/rov.js' %}"></script>
     <script type="text/javascript" src="{% static 'scripts/to_top.js' %}"></script>
-
+    {% block header %}
+     <title> Marshmallow Lace </title>
+    <meta name="Keywords" content="レース,タティング,python,django,趣味" />
+    <meta name="Description" content="透き通るような時間を、あなたに。" />
+   {% endblock header %}
  </head>
  <body onload="rollovers( '_df' , '_ov' );">
- </div>
+
  <nav class="navbar navbar-expand-lg navbar-dark " style="background-color:#DC143C;" >
-       <a class="navbar-brand text-white" href="{% url 'myapp:base' %}">marshmallow</a>
+       <a class="navbar-brand text-white" href="{% url 'myapp:index' %}">marshmallow</a>
            <ul class="navbar-nav mr-auto" style="flex-direction:row;" >
+           {% block nav %}
            <li class="nav-item ">
-           <a class="nav-link" href="#">Home</a>
+
+           <a class="nav-link" href="{% url 'myapp:index' %}">Home</a>
            </li>
            <li class="nav-item active mx-2">
                <a class="nav-link" href="#">galery <span class="sr-only">(current)</span></a>
@@ -31,7 +37,7 @@
            <li class="nav-item ">
                <a class="nav-link" href="#">tea and sweets</a>
            </li>
-
+           {% endblock nav %}
            </ul>
            <form class="form-inline my-2 my-lg-0">
            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
@@ -39,19 +45,23 @@
            </form>
 
    </nav>
+
+
+
  <div class="container">
-   {% block header %}
-     <title>Marshmallow Lace </title>
-    <meta name="Keywords" content="レース,タティング,python,django,趣味" />
-    <meta name="Description" content="透き通るような時間を、あなたに。" />
-   {% endblock header %}
-   {% block content %}
-
-
-
-
-
+ <div id="base">
+    <div id="head">
+        <img src ="{% static 'img/logomark-2.JPG' %}" alt ="logomark" title ="marshmallow" >
+        <img src="{% static 'img/logo-1.png' %}" alt="かわいいHTMLテンプレート no.001　ロゴ" id="logo" >
+        </div>
+ {% block content %}
+    <div id="main">
+    </div>
+    <div id= "side" >
+    </div>
+ </div>
    {% endblock content %}
+
 </div>
    <!-- Optional JavaScript; choose one of the two! -->
 

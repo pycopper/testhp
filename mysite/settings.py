@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 import os
 import dj_database_url
+
 import django_heroku
 # Activate Django-Heroku.
 #django_heroku.settings(locals())
@@ -47,7 +48,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'myapp'
+    'myapp',
+    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -157,3 +159,5 @@ STATIC_DIRS = (
 #追加
 MEDIA_URL = '/pics/'
 MEDIA_ROOT = BASE_DIR
+
+AUTH_USER_MODEL = 'accounts.CustomUser'
