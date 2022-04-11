@@ -24,7 +24,7 @@ app_name ='myapp'
 
 
 urlpatterns = [
-    path('',views.index,name='index'),
+    path('',views.indexview.as_view(),name='index'),
     path('index/',views.indexview.as_view(),name='index'),
     path('tea/',views.tealist.as_view(), name='tea'),
     path('works/',views.lacelist.as_view(), name='lace'),
